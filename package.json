@@ -1,7 +1,7 @@
 {
-  "name": "boilerplate-nestjs",
+  "name": "barbershop-back",
   "version": "0.0.1",
-  "description": "Boilerplate Nestjs, TypeORM",
+  "description": "Backend barbershop",
   "author": "Andrey Araujo",
   "private": true,
   "license": "UNLICENSED",
