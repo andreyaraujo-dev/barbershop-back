@@ -1,0 +1,14 @@
+{
+  "type": "postgres",
+  "port": 5432,
+  "host": "localhost",
+  "username": "barbershop",
+  "password": "barbershop",
+  "database": "barbershop",
+  "migrations": ["src/database/migrations/*.ts"],
+  "entities": ["/src/modules/**/*.entity.ts"],
+  "cli": {
+    "migrationsDir": "src/database/migrations"
+  },
+  "synchronize": true
+}
