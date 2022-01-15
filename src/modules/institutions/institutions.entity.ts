@@ -31,4 +31,8 @@ export class InstitutionsEntity {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  constructor(data: Partial<InstitutionsEntity>) {
+    Object.assign(this, data);
+  }
 }

@@ -5,8 +5,13 @@
   "username": "barbershop",
   "password": "barbershop",
   "database": "barbershop",
-  "migrations": ["src/database/migrations/*.ts"],
-  "entities": ["/src/modules/**/*.entity.ts"],
+  "migrations": [
+    "src/database/migrations/*.ts"
+  ],
+  "entities": [
+    "/src/modules/**/*.entity.ts",
+    "dist/**/*.entity{.ts,.js}"
+  ],
   "cli": {
     "migrationsDir": "src/database/migrations"
   },
