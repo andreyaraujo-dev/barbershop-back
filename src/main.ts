@@ -7,8 +7,8 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const config = new DocumentBuilder()
-    .setTitle('POS Virtual')
-    .setDescription('Documentação do Mricroserviço do POS Virtual')
+    .setTitle('Barbershop')
+    .setDescription('Documentação da API do Barbershop')
     .setVersion('1.0')
     .build();
   const document = SwaggerModule.createDocument(app, config);

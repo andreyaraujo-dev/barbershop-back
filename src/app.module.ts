@@ -1,15 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { InstitutionsModule } from './modules/institutions/institutions.module';
+import { SharedModule } from './modules/shared/shared.module';
 
 @Module({
-  imports: [
-    ConfigModule.forRoot(),
-    TypeOrmModule.forRoot(),
-    InstitutionsModule,
-  ],
+  imports: [ConfigModule.forRoot(), SharedModule, InstitutionsModule],
   controllers: [],
   providers: [],
 })

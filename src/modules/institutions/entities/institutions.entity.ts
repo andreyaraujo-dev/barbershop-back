@@ -11,20 +11,20 @@ export class InstitutionsEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({ type: 'varchar', length: 150 })
   name: string;
 
-  @Column()
+  @Column({ type: 'varchar', length: 300 })
   description: string;
 
-  @Column()
+  @Column({ type: 'varchar', length: 100 })
   facilities: string;
 
-  @Column()
-  payments_methods: string;
+  @Column({ type: 'varchar', length: 100 })
+  paymentsMethods: string;
 
-  @Column()
-  opening_hours: string;
+  @Column({ type: 'varchar', length: 80 })
+  openingHours: string;
 
   @CreateDateColumn()
   createdAt: Date;

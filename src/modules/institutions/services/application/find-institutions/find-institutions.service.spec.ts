@@ -5,17 +5,17 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 
 import { InstitutionsMocks } from '../../../__mocks__/InstitutionsMocks';
 import { InstitutionsEntity } from '../../../entities/institutions.entity';
-import { ListInstitutionsService } from './list-institutions.service';
+import { FindInstitutionsService } from './find-institutions.service';
 
 describe('List institutions', () => {
   const institutionsMocks = new InstitutionsMocks();
-  let listInstitutionService: ListInstitutionsService;
+  let listInstitutionService: FindInstitutionsService;
   let institutionRepository: Repository<InstitutionsEntity>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        ListInstitutionsService,
+        FindInstitutionsService,
         {
           provide: getRepositoryToken(InstitutionsEntity),
           useValue: {
@@ -30,8 +30,8 @@ describe('List institutions', () => {
       ],
     }).compile();
 
-    listInstitutionService = module.get<ListInstitutionsService>(
-      ListInstitutionsService,
+    listInstitutionService = module.get<FindInstitutionsService>(
+      FindInstitutionsService,
     );
     institutionRepository = module.get<Repository<InstitutionsEntity>>(
       getRepositoryToken(InstitutionsEntity),
@@ -44,11 +44,14 @@ describe('List institutions', () => {
   });
 
   it('should return a institution list', async () => {
-    const result = await listInstitutionService.execute({
-      limit: 10,
-      page: 1,
-      route: '/institutions',
-    });
+    const result = await listInstitutionService.execute(
+      {
+        page: 1,
+        limit: 10,
+        route: '/institutions',
+      },
+      'any_name',
+    );
 
     expect(result).toHaveLength(2);
     expect(institutionRepository.find).toBeCalledTimes(1);

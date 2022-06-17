@@ -1,4 +1,4 @@
-import { InstitutionsEntity } from '../institutions.entity';
+import { InstitutionsEntity } from '../entities/institutions.entity';
 
 export class InstitutionsMocks {
   createInstitution = (): InstitutionsEntity =>
@@ -7,8 +7,8 @@ export class InstitutionsMocks {
       name: '',
       description: '',
       facilities: '',
-      payments_methods: '',
-      opening_hours: '',
+      paymentsMethods: '',
+      openingHours: '',
       createdAt: new Date(),
       updatedAt: new Date(),
     });

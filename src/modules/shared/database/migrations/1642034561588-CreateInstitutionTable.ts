@@ -10,6 +10,7 @@ export class CreateInstitutionTable1642034561588 implements MigrationInterface {
             name: 'id',
             type: 'uuid',
             isPrimary: true,
+            default: 'uuid_generate_v4()',
           },
           {
             name: 'name',
@@ -24,11 +25,11 @@ export class CreateInstitutionTable1642034561588 implements MigrationInterface {
             type: 'varchar',
           },
           {
-            name: 'payments_methods',
+            name: 'paymentsMethods',
             type: 'varchar',
           },
           {
-            name: 'opening_hours',
+            name: 'openingHours',
             type: 'varchar',
           },
           {

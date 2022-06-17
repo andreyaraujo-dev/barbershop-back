@@ -1,18 +1,17 @@
-import { Repository } from 'typeorm';
+import { Like, Repository } from 'typeorm';
 
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
+import { InstitutionsEntity } from '../../../entities/institutions.entity';
 import {
+  IPaginationOptions,
   paginate,
   Pagination,
-  IPaginationOptions,
 } from 'nestjs-typeorm-paginate';
 
-import { InstitutionsEntity } from '../../../entities/institutions.entity';
-
 @Injectable()
-export class ListInstitutionsService {
+export class FindInstitutionsService {
   constructor(
     @InjectRepository(InstitutionsEntity)
     private institutionsRepository: Repository<InstitutionsEntity>,
@@ -20,7 +19,10 @@ export class ListInstitutionsService {
 
   async execute(
     options: IPaginationOptions,
+    name: string,
   ): Promise<Pagination<InstitutionsEntity>> {
-    return paginate<InstitutionsEntity>(this.institutionsRepository, options);
+    return paginate<InstitutionsEntity>(this.institutionsRepository, options, {
+      where: { name: Like(`%${name}%`) },
+    });
   }
 }
