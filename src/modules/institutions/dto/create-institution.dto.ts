@@ -17,17 +17,17 @@ export class CreateInstitutionDto {
   @ApiPropertyOptional()
   @IsOptional()
   @IsString()
-  description: string;
+  description?: string;
 
   @ApiPropertyOptional()
   @IsOptional()
-  facilities: string;
+  facilities?: string;
 
   @ApiPropertyOptional()
   @IsOptional()
-  paymentsMethods: string;
+  paymentsMethods?: string;
 
   @ApiPropertyOptional()
   @IsOptional()
-  openingHours: string;
+  openingHours?: string;
 }

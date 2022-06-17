@@ -44,7 +44,14 @@ describe('List institutions', () => {
   });
 
   it('should return a institution list', async () => {
-    const result = await listInstitutionService.execute();
+    const result = await listInstitutionService.execute(
+      {
+        page: 1,
+        limit: 10,
+        route: '/institutions',
+      },
+      'any_name',
+    );
 
     expect(result).toHaveLength(2);
     expect(institutionRepository.find).toBeCalledTimes(1);
