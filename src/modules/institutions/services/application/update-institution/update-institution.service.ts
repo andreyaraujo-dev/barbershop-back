@@ -4,7 +4,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { UpdateInstitutionDto } from '../../../dto/update-institution.dto';
-import { InstitutionsEntity } from '../../../institutions.entity';
+import { InstitutionsEntity } from '../../../entities/institutions.entity';
 
 @Injectable()
 export class UpdateInstitutionService {

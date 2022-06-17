@@ -3,7 +3,7 @@ import { Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { InstitutionsEntity } from '../../../institutions.entity';
+import { InstitutionsEntity } from '../../../entities/institutions.entity';
 
 @Injectable()
 export class ListInstitutionsService {

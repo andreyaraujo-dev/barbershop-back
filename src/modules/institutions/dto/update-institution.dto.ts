@@ -19,9 +19,9 @@ export class UpdateInstitutionDto {
 
   @ApiPropertyOptional()
   @IsOptional()
-  payments_methods: string;
+  paymentsMethods: string;
 
   @ApiPropertyOptional()
   @IsOptional()
-  opening_hours: string;
+  openingHours: string;
 }

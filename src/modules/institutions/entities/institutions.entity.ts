@@ -21,10 +21,10 @@ export class InstitutionsEntity {
   facilities: string;
 
   @Column({ type: 'varchar', length: 100 })
-  payments_methods: string;
+  paymentsMethods: string;
 
   @Column({ type: 'varchar', length: 80 })
-  opening_hours: string;
+  openingHours: string;
 
   @CreateDateColumn()
   createdAt: Date;

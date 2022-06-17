@@ -25,11 +25,11 @@ export class CreateInstitutionTable1642034561588 implements MigrationInterface {
             type: 'varchar',
           },
           {
-            name: 'payments_methods',
+            name: 'paymentsMethods',
             type: 'varchar',
           },
           {
-            name: 'opening_hours',
+            name: 'openingHours',
             type: 'varchar',
           },
           {

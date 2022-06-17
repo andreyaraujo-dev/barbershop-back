@@ -4,7 +4,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 
 import { InstitutionsMocks } from '../../../__mocks__/InstitutionsMocks';
-import { InstitutionsEntity } from '../../../institutions.entity';
+import { InstitutionsEntity } from '../../../entities/institutions.entity';
 import { ListInstitutionsService } from './list-institutions.service';
 
 describe('List institutions', () => {

@@ -25,9 +25,9 @@ export class CreateInstitutionDto {
 
   @ApiPropertyOptional()
   @IsOptional()
-  payments_methods: string;
+  paymentsMethods: string;
 
   @ApiPropertyOptional()
   @IsOptional()
-  opening_hours: string;
+  openingHours: string;
 }

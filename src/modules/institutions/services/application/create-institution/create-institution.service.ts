@@ -4,7 +4,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { CreateInstitutionDto } from '../../../dto/create-institution.dto';
-import { InstitutionsEntity } from '../../../institutions.entity';
+import { InstitutionsEntity } from '../../../entities/institutions.entity';
 
 @Injectable()
 export class CreateInstitutionService {

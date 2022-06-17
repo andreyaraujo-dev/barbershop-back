@@ -5,12 +5,13 @@ import {
   Param,
   ParseUUIDPipe,
   Post,
-  Put, Query,
+  Put,
+  Query,
 } from '@nestjs/common';
 
 import { CreateInstitutionDto } from './dto/create-institution.dto';
 import { UpdateInstitutionDto } from './dto/update-institution.dto';
-import { InstitutionsEntity } from './institutions.entity';
+import { InstitutionsEntity } from './entities/institutions.entity';
 import { CreateInstitutionService } from './services/application/create-institution/create-institution.service';
 import { ListInstitutionsService } from './services/application/list-institutions/list-institutions.service';
 import { UpdateInstitutionService } from './services/application/update-institution/update-institution.service';
