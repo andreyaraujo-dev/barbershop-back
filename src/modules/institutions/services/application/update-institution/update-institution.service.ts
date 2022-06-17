@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { UpdateInstitutionDto } from '../../../dto/update-institution.dto';
 import { InstitutionsEntity } from '../../../entities/institutions.entity';
+import { InstitutionNotFoundException } from '../../../exceptions/institution-not-found.exception';
 
 @Injectable()
 export class UpdateInstitutionService {
@@ -20,7 +21,7 @@ export class UpdateInstitutionService {
     const institution = await this.institutionRepository.findOneOrFail(id);
 
     if (!institution) {
-      throw new Error('Institution does not exists.');
+      throw new InstitutionNotFoundException(id);
     }
 
     this.institutionRepository.merge(institution, data);
