@@ -1,9 +1,14 @@
-import { Repository } from 'typeorm';
+import { Like, Repository } from 'typeorm';
 
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { InstitutionsEntity } from '../../../entities/institutions.entity';
+import {
+  IPaginationOptions,
+  paginate,
+  Pagination,
+} from 'nestjs-typeorm-paginate';
 
 @Injectable()
 export class FindInstitutionsService {
@@ -12,9 +17,12 @@ export class FindInstitutionsService {
     private institutionsRepository: Repository<InstitutionsEntity>,
   ) {}
 
-  async execute(name: string): Promise<InstitutionsEntity[]> {
-    return await this.institutionsRepository.find({
-      where: { name },
+  async execute(
+    options: IPaginationOptions,
+    name: string,
+  ): Promise<Pagination<InstitutionsEntity>> {
+    return paginate<InstitutionsEntity>(this.institutionsRepository, options, {
+      where: { name: Like(`%${name}%`) },
     });
   }
 }
