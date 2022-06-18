@@ -3,6 +3,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -23,6 +24,7 @@ export class ServicesEntity {
   institutionId: string;
 
   @ManyToOne(() => InstitutionsEntity, (institution) => institution.services)
+  @JoinColumn({ name: 'institutionId' })
   institution: InstitutionsEntity;
 
   @Column()

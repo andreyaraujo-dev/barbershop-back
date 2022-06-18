@@ -21,6 +21,8 @@ export class ListInstitutionsService {
   async execute(
     options: IPaginationOptions,
   ): Promise<Pagination<InstitutionsEntity>> {
-    return paginate<InstitutionsEntity>(this.institutionsRepository, options);
+    return paginate<InstitutionsEntity>(this.institutionsRepository, options, {
+      relations: ['services'],
+    });
   }
 }
