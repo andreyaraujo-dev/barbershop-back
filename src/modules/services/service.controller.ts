@@ -32,15 +32,17 @@ export class ServiceController {
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number = 1,
     @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number = 10,
     @Query('institutionId') institutionId?: string,
+    @Query('name') name?: string,
   ): Promise<Pagination<ServicesEntity>> {
     limit = limit > 100 ? 100 : limit;
-    return this.listServicesService.execute(
-      {
+    return this.listServicesService.execute({
+      options: {
         page,
         limit,
         route: 'api/v1/services',
       },
       institutionId,
-    );
+      name,
+    });
   }
 }

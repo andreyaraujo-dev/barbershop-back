@@ -9,6 +9,12 @@ import {
   IPaginationOptions,
 } from 'nestjs-typeorm-paginate';
 
+type ListServiceProps = {
+  options: IPaginationOptions;
+  institutionId?: string;
+  name?: string;
+};
+
 @Injectable()
 export class ListServicesService {
   constructor(
@@ -16,16 +22,19 @@ export class ListServicesService {
     private readonly serviceRepository: Repository<ServicesEntity>,
   ) {}
 
-  async execute(
-    options: IPaginationOptions,
-    institutionId?: string,
-  ): Promise<Pagination<ServicesEntity>> {
-    return paginate<ServicesEntity>(
-      this.serviceRepository,
-      options,
-      institutionId && {
-        where: { institutionId },
-      },
-    );
+  async execute({
+    options,
+    institutionId,
+    name,
+  }: ListServiceProps): Promise<Pagination<ServicesEntity>> {
+    const queryBuilder = this.serviceRepository.createQueryBuilder('s');
+    if (institutionId)
+      queryBuilder.andWhere('s.institutionId = :institutionId', {
+        institutionId,
+      });
+    if (name) queryBuilder.andWhere('s.name like :name', { name: `%${name}%` });
+    queryBuilder.orderBy('s.name', 'ASC');
+
+    return paginate<ServicesEntity>(queryBuilder, options);
   }
 }
