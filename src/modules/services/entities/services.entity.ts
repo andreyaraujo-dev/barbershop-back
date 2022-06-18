@@ -30,6 +30,9 @@ export class ServicesEntity {
   @Column()
   duration: number;
 
+  @Column()
+  price: number;
+
   @CreateDateColumn()
   createdAt: Date;
 

@@ -16,6 +16,10 @@ export class CreateServiceDto {
   duration: number;
 
   @ApiProperty()
+  @IsNumber()
+  price: number;
+
+  @ApiProperty()
   @IsUUID()
   institutionId: string;
 }

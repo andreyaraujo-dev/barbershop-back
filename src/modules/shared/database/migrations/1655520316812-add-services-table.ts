@@ -39,6 +39,11 @@ export class addServicesTable1655520316812 implements MigrationInterface {
             comment: 'time in milliseconds',
           },
           {
+            name: 'price',
+            type: 'decimal',
+            isNullable: false,
+          },
+          {
             name: 'createdAt',
             type: 'timestamp',
             default: 'now()',
@@ -55,6 +60,7 @@ export class addServicesTable1655520316812 implements MigrationInterface {
     await queryRunner.createForeignKey(
       'services',
       new TableForeignKey({
+        name: 'FKInstitutionId',
         columnNames: ['institutionId'],
         referencedColumnNames: ['id'],
         referencedTableName: 'institutions',
@@ -64,7 +70,7 @@ export class addServicesTable1655520316812 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropForeignKey('services', 'institutionId');
+    await queryRunner.dropForeignKey('services', 'FKInstitutionId');
     await queryRunner.dropTable('services');
   }
 }
