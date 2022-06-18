@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   DefaultValuePipe,
+  Delete,
   Get,
   Param,
   ParseIntPipe,
@@ -28,6 +29,8 @@ import { ServicesEntity } from './entities/services.entity';
 import { CreateServiceService } from './services/application/create-service/create-service.service';
 import { ListServicesService } from './services/application/list-service/list-service.service';
 import { UpdateServiceService } from './services/application/update-service/update-service.service';
+import { DeleteResult } from 'typeorm';
+import { DeleteServiceService } from './services/application/delete-service/delete-service.service';
 
 @ApiTags('Services')
 @Controller('api/v1/services')
@@ -36,6 +39,7 @@ export class ServiceController {
     private readonly createServiceService: CreateServiceService,
     private readonly listServicesService: ListServicesService,
     private readonly updateServiceService: UpdateServiceService,
+    private readonly deleteServiceService: DeleteServiceService,
   ) {}
 
   @Post()
@@ -122,5 +126,22 @@ export class ServiceController {
     @Body() body: UpdateServiceDto,
   ): Promise<ServicesEntity> {
     return this.updateServiceService.execute(body, id);
+  }
+
+  @Delete(':id')
+  @ApiOkResponse({
+    description: 'Deleção feita com sucesso',
+    type: DeleteResult,
+  })
+  @ApiInternalServerErrorResponse({
+    description: 'Erro interno no servidor',
+  })
+  @ApiBadRequestResponse({
+    description: 'Não foi possível deletar o serviço',
+  })
+  async delete(
+    @Param('id', new ParseUUIDPipe()) id: string,
+  ): Promise<DeleteResult> {
+    return this.deleteServiceService.execute(id);
   }
 }
