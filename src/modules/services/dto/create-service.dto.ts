@@ -2,24 +2,24 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsNumber, IsOptional, IsString, IsUUID } from 'class-validator';
 
 export class CreateServiceDto {
-  @ApiProperty()
+  @ApiProperty({ description: 'Nome do serviço', required: true })
   @IsString()
   name: string;
 
-  @ApiProperty()
+  @ApiProperty({ description: 'Descrição do serviço', required: false })
   @IsString()
   @IsOptional()
   description?: string;
 
-  @ApiProperty()
+  @ApiProperty({ description: 'Duração do serviço', required: true })
   @IsNumber()
   duration: number;
 
-  @ApiProperty()
+  @ApiProperty({ description: 'Preço do serviço', required: true })
   @IsNumber()
   price: number;
 
-  @ApiProperty()
+  @ApiProperty({ description: 'Id da instituição do serviço', required: true })
   @IsUUID()
   institutionId: string;
 }
