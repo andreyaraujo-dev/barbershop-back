@@ -3,7 +3,10 @@ import {
   Controller,
   DefaultValuePipe,
   Get,
+  Param,
   ParseIntPipe,
+  ParseUUIDPipe,
+  Patch,
   Post,
   Query,
 } from '@nestjs/common';
@@ -19,9 +22,12 @@ import { Pagination } from 'nestjs-typeorm-paginate';
 import { CreateServiceDto } from './dto/create-service.dto';
 import { CreatedServiceDto } from './dto/created-service.dto';
 import { ListServicesResult } from './dto/list-services-result.dto';
+import { UpdatedServiceDto } from './dto/updated-service.dto';
+import { UpdateServiceDto } from './dto/update-service.dto';
 import { ServicesEntity } from './entities/services.entity';
 import { CreateServiceService } from './services/application/create-service/create-service.service';
 import { ListServicesService } from './services/application/list-service/list-service.service';
+import { UpdateServiceService } from './services/application/update-service/update-service.service';
 
 @ApiTags('Services')
 @Controller('api/v1/services')
@@ -29,6 +35,7 @@ export class ServiceController {
   constructor(
     private readonly createServiceService: CreateServiceService,
     private readonly listServicesService: ListServicesService,
+    private readonly updateServiceService: UpdateServiceService,
   ) {}
 
   @Post()
@@ -97,5 +104,23 @@ export class ServiceController {
       institutionId,
       name,
     });
+  }
+
+  @Patch(':id')
+  @ApiOkResponse({
+    description: 'Atualização feita com sucesso',
+    type: UpdatedServiceDto,
+  })
+  @ApiInternalServerErrorResponse({
+    description: 'Erro interno no servidor',
+  })
+  @ApiBadRequestResponse({
+    description: 'Não foi possível realizar a atualização do serviço',
+  })
+  async update(
+    @Param('id', new ParseUUIDPipe()) id: string,
+    @Body() body: UpdateServiceDto,
+  ): Promise<ServicesEntity> {
+    return this.updateServiceService.execute(body, id);
   }
 }
