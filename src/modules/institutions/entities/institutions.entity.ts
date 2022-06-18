@@ -2,9 +2,12 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+
+import { ServicesEntity } from '../../services/entities/services.entity';
 
 @Entity({ name: 'institutions' })
 export class InstitutionsEntity {
@@ -25,6 +28,9 @@ export class InstitutionsEntity {
 
   @Column({ type: 'varchar', length: 80 })
   openingHours: string;
+
+  @OneToMany(() => ServicesEntity, (service) => service.institution)
+  services: ServicesEntity[];
 
   @CreateDateColumn()
   createdAt: Date;
