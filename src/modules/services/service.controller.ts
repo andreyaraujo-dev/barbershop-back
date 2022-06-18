@@ -31,6 +31,7 @@ import { ListServicesService } from './services/application/list-service/list-se
 import { UpdateServiceService } from './services/application/update-service/update-service.service';
 import { DeleteResult } from 'typeorm';
 import { DeleteServiceService } from './services/application/delete-service/delete-service.service';
+import { FindByIdServiceService } from './services/application/find-by-id-service/find-by-id-service.service';
 
 @ApiTags('Services')
 @Controller('api/v1/services')
@@ -40,6 +41,7 @@ export class ServiceController {
     private readonly listServicesService: ListServicesService,
     private readonly updateServiceService: UpdateServiceService,
     private readonly deleteServiceService: DeleteServiceService,
+    private readonly findByIdServiceService: FindByIdServiceService,
   ) {}
 
   @Post()
@@ -143,5 +145,22 @@ export class ServiceController {
     @Param('id', new ParseUUIDPipe()) id: string,
   ): Promise<DeleteResult> {
     return this.deleteServiceService.execute(id);
+  }
+
+  @Get(':id')
+  @ApiOkResponse({
+    description: 'Pesquisa feita com sucesso',
+    type: ServicesEntity,
+  })
+  @ApiInternalServerErrorResponse({
+    description: 'Erro interno no servidor',
+  })
+  @ApiBadRequestResponse({
+    description: 'Não foi possível pesquisar o serviço',
+  })
+  async findById(
+    @Param('id', new ParseUUIDPipe()) id: string,
+  ): Promise<ServicesEntity> {
+    return this.findByIdServiceService.execute(id);
   }
 }

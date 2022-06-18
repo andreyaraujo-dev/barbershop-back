@@ -6,6 +6,7 @@ import { CreateServiceService } from './services/application/create-service/crea
 import { ListServicesService } from './services/application/list-service/list-service.service';
 import { UpdateServiceService } from './services/application/update-service/update-service.service';
 import { DeleteServiceService } from './services/application/delete-service/delete-service.service';
+import { FindByIdServiceService } from './services/application/find-by-id-service/find-by-id-service.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([ServicesEntity])],
@@ -15,6 +16,7 @@ import { DeleteServiceService } from './services/application/delete-service/dele
     ListServicesService,
     UpdateServiceService,
     DeleteServiceService,
+    FindByIdServiceService,
   ],
   exports: [],
 })
