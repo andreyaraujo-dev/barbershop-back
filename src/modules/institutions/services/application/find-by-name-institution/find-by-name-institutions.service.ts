@@ -11,7 +11,7 @@ import {
 } from 'nestjs-typeorm-paginate';
 
 @Injectable()
-export class FindInstitutionsService {
+export class FindByNameInstitutionsService {
   constructor(
     @InjectRepository(InstitutionsEntity)
     private institutionsRepository: Repository<InstitutionsEntity>,

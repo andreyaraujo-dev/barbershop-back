@@ -19,7 +19,7 @@ import { InstitutionsEntity } from './entities/institutions.entity';
 import { CreateInstitutionService } from './services/application/create-institution/create-institution.service';
 import { ListInstitutionsService } from './services/application/list-institutions/list-institutions.service';
 import { UpdateInstitutionService } from './services/application/update-institution/update-institution.service';
-import { FindInstitutionsService } from './services/application/find-institutions/find-institutions.service';
+import { FindByNameInstitutionsService } from './services/application/find-by-name-institution/find-by-name-institutions.service';
 import { Pagination } from 'nestjs-typeorm-paginate';
 import {
   ApiBadRequestResponse,
@@ -28,6 +28,7 @@ import {
   ApiOkResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { FindByIdInstitutionService } from './services/application/find-by-id-institution/find-by-id-institution.service';
 
 @ApiTags('Institutions')
 @Controller('api/v1/institutions')
@@ -36,7 +37,8 @@ export class InstitutionsController {
     private readonly listInstitutionsService: ListInstitutionsService,
     private readonly createInstitutionService: CreateInstitutionService,
     private readonly updateInstitutionService: UpdateInstitutionService,
-    private readonly findInstitutionService: FindInstitutionsService,
+    private readonly findByNameInstitutionService: FindByNameInstitutionsService,
+    private readonly findByIdInstitutionService: FindByIdInstitutionService,
   ) {}
 
   @Get()
@@ -77,7 +79,7 @@ export class InstitutionsController {
     @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number = 10,
   ): Promise<Pagination<InstitutionsEntity>> {
     limit = limit > 100 ? 100 : limit;
-    return this.findInstitutionService.execute(
+    return this.findByNameInstitutionService.execute(
       {
         page,
         limit,
@@ -120,5 +122,22 @@ export class InstitutionsController {
     @Body() body: UpdateInstitutionDto,
   ): Promise<InstitutionsEntity> {
     return this.updateInstitutionService.execute(body, id);
+  }
+
+  @Get(':id')
+  @ApiOkResponse({
+    description: 'Pesquisa feita com sucesso',
+    type: InstitutionsEntity,
+  })
+  @ApiInternalServerErrorResponse({
+    description: 'Erro interno no servidor',
+  })
+  @ApiBadRequestResponse({
+    description: 'Não foi possível realizar a pesquisa',
+  })
+  async findById(
+    @Param('id', new ParseUUIDPipe()) id: string,
+  ): Promise<InstitutionsEntity> {
+    return this.findByIdInstitutionService.execute(id);
   }
 }
