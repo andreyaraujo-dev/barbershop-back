@@ -1,17 +1,17 @@
+import {
+  IPaginationOptions,
+  paginate,
+  Pagination,
+} from 'nestjs-typeorm-paginate';
 import { Like, Repository } from 'typeorm';
 
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { InstitutionsEntity } from '../../../entities/institutions.entity';
-import {
-  IPaginationOptions,
-  paginate,
-  Pagination,
-} from 'nestjs-typeorm-paginate';
 
 @Injectable()
-export class FindInstitutionsService {
+export class FindByNameInstitutionsService {
   constructor(
     @InjectRepository(InstitutionsEntity)
     private institutionsRepository: Repository<InstitutionsEntity>,

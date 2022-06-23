@@ -1,7 +1,9 @@
+import { join } from 'path';
+
 import { Inject, Injectable } from '@nestjs/common';
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
+
 import { ConstantKeys } from '../config/constant-keys.enum';
-import { join } from 'path';
 
 @Injectable()
 export class TypeOrmConfigService implements TypeOrmOptionsFactory {

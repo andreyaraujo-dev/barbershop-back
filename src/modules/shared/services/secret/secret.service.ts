@@ -20,7 +20,7 @@ export class SecretService {
   fetchEnvSecret(key: ConstantKeys): string | undefined {
     this.loggerService.debug(`Fetching secret ${key}`);
 
-    let secret = this.fetchEnvVar(key);
+    const secret = this.fetchEnvVar(key);
 
     this.loggerService.debug(`${key} resolved`);
     return secret;

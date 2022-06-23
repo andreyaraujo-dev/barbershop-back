@@ -5,17 +5,17 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 
 import { InstitutionsMocks } from '../../../__mocks__/InstitutionsMocks';
 import { InstitutionsEntity } from '../../../entities/institutions.entity';
-import { FindInstitutionsService } from './find-institutions.service';
+import { FindByNameInstitutionsService } from './find-by-name-institutions.service';
 
 describe('List institutions', () => {
   const institutionsMocks = new InstitutionsMocks();
-  let listInstitutionService: FindInstitutionsService;
+  let listInstitutionService: FindByNameInstitutionsService;
   let institutionRepository: Repository<InstitutionsEntity>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        FindInstitutionsService,
+        FindByNameInstitutionsService,
         {
           provide: getRepositoryToken(InstitutionsEntity),
           useValue: {
@@ -30,8 +30,8 @@ describe('List institutions', () => {
       ],
     }).compile();
 
-    listInstitutionService = module.get<FindInstitutionsService>(
-      FindInstitutionsService,
+    listInstitutionService = module.get<FindByNameInstitutionsService>(
+      FindByNameInstitutionsService,
     );
     institutionRepository = module.get<Repository<InstitutionsEntity>>(
       getRepositoryToken(InstitutionsEntity),
