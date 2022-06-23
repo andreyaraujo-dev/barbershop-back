@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 import { InstitutionsEntity } from 'src/modules/institutions/entities/institutions.entity';
 import { InstitutionNotFoundException } from 'src/modules/institutions/exceptions/institution-not-found.exception';
 import { Repository } from 'typeorm';
+
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class FindByIdInstitutionService {

@@ -1,13 +1,14 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { ServicesEntity } from '../../../entities/services.entity';
-import { Repository } from 'typeorm';
-
 import {
   paginate,
   Pagination,
   IPaginationOptions,
 } from 'nestjs-typeorm-paginate';
+import { Repository } from 'typeorm';
+
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+
+import { ServicesEntity } from '../../../entities/services.entity';
 
 type ListServiceProps = {
   options: IPaginationOptions;

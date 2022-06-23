@@ -1,3 +1,5 @@
+import { Pagination } from 'nestjs-typeorm-paginate';
+
 import {
   Body,
   Controller,
@@ -10,17 +12,6 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
-
-import { CreateInstitutionDto } from './dto/create-institution.dto';
-import { UpdateInstitutionDto } from './dto/update-institution.dto';
-import { CreatedInstitutionDto } from './dto/created-institution.dto';
-import { UpdatedInstitutionDto } from './dto/updated-institution.dto';
-import { InstitutionsEntity } from './entities/institutions.entity';
-import { CreateInstitutionService } from './services/application/create-institution/create-institution.service';
-import { ListInstitutionsService } from './services/application/list-institutions/list-institutions.service';
-import { UpdateInstitutionService } from './services/application/update-institution/update-institution.service';
-import { FindByNameInstitutionsService } from './services/application/find-by-name-institution/find-by-name-institutions.service';
-import { Pagination } from 'nestjs-typeorm-paginate';
 import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
@@ -28,7 +19,17 @@ import {
   ApiOkResponse,
   ApiTags,
 } from '@nestjs/swagger';
+
+import { CreateInstitutionDto } from './dto/create-institution.dto';
+import { CreatedInstitutionDto } from './dto/created-institution.dto';
+import { UpdateInstitutionDto } from './dto/update-institution.dto';
+import { UpdatedInstitutionDto } from './dto/updated-institution.dto';
+import { InstitutionsEntity } from './entities/institutions.entity';
+import { CreateInstitutionService } from './services/application/create-institution/create-institution.service';
 import { FindByIdInstitutionService } from './services/application/find-by-id-institution/find-by-id-institution.service';
+import { FindByNameInstitutionsService } from './services/application/find-by-name-institution/find-by-name-institutions.service';
+import { ListInstitutionsService } from './services/application/list-institutions/list-institutions.service';
+import { UpdateInstitutionService } from './services/application/update-institution/update-institution.service';
 
 @ApiTags('Institutions')
 @Controller('api/v1/institutions')
@@ -52,8 +53,8 @@ export class InstitutionsController {
     description: 'Não foi possível realizar a listagem',
   })
   async list(
-    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number = 1,
-    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number = 10,
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page = 1,
+    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit = 10,
   ): Promise<Pagination<InstitutionsEntity>> {
     limit = limit > 100 ? 100 : limit;
     return this.listInstitutionsService.execute({
@@ -75,8 +76,8 @@ export class InstitutionsController {
   })
   async find(
     @Query('name') name: string,
-    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number = 1,
-    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number = 10,
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page = 1,
+    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit = 10,
   ): Promise<Pagination<InstitutionsEntity>> {
     limit = limit > 100 ? 100 : limit;
     return this.findByNameInstitutionService.execute(

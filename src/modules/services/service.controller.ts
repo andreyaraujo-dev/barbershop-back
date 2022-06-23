@@ -1,3 +1,6 @@
+import { Pagination } from 'nestjs-typeorm-paginate';
+import { DeleteResult } from 'typeorm';
+
 import {
   Body,
   Controller,
@@ -19,19 +22,18 @@ import {
   ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
-import { Pagination } from 'nestjs-typeorm-paginate';
+
 import { CreateServiceDto } from './dto/create-service.dto';
 import { CreatedServiceDto } from './dto/created-service.dto';
 import { ListServicesResult } from './dto/list-services-result.dto';
-import { UpdatedServiceDto } from './dto/updated-service.dto';
 import { UpdateServiceDto } from './dto/update-service.dto';
+import { UpdatedServiceDto } from './dto/updated-service.dto';
 import { ServicesEntity } from './entities/services.entity';
 import { CreateServiceService } from './services/application/create-service/create-service.service';
-import { ListServicesService } from './services/application/list-service/list-service.service';
-import { UpdateServiceService } from './services/application/update-service/update-service.service';
-import { DeleteResult } from 'typeorm';
 import { DeleteServiceService } from './services/application/delete-service/delete-service.service';
 import { FindByIdServiceService } from './services/application/find-by-id-service/find-by-id-service.service';
+import { ListServicesService } from './services/application/list-service/list-service.service';
+import { UpdateServiceService } from './services/application/update-service/update-service.service';
 
 @ApiTags('Services')
 @Controller('api/v1/services')
@@ -95,8 +97,8 @@ export class ServiceController {
     required: false,
   })
   async list(
-    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number = 1,
-    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number = 10,
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page = 1,
+    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit = 10,
     @Query('institutionId') institutionId?: string,
     @Query('name') name?: string,
   ): Promise<Pagination<ServicesEntity>> {

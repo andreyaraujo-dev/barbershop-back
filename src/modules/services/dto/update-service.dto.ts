@@ -1,12 +1,6 @@
+import { IsNumber, IsOptional, IsString } from 'class-validator';
+
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  IsDecimal,
-  IsNotEmpty,
-  IsNumber,
-  IsOptional,
-  IsString,
-  IsUUID,
-} from 'class-validator';
 
 export class UpdateServiceDto {
   @ApiProperty({ description: 'Nome' })

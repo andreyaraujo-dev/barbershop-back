@@ -1,11 +1,15 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    project: path.join(__dirname, "tsconfig.json"),
+    project: './tsconfig.json',
     sourceType: 'module',
-    tsconfigRootDir: __dirname
+    tsconfigRootDir: './',
   },
-  plugins: ['@typescript-eslint/eslint-plugin', "prettier", "eslint-plugin-import-helpers"],
+  plugins: [
+    '@typescript-eslint/eslint-plugin',
+    'prettier',
+    'eslint-plugin-import-helpers',
+  ],
   extends: [
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
@@ -21,13 +25,13 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
-    "import-helpers/order-imports": [
-      "warn",
+    'import-helpers/order-imports': [
+      'warn',
       {
-        "newlinesBetween": "always",
-        "groups": ["module", "/^@/", ["parent", "sibling", "index"]],
-        "alphabetize": { "order": "asc", "ignoreCase": true }
-      }
-    ]
+        newlinesBetween: 'always',
+        groups: ['module', '/^@/', ['parent', 'sibling', 'index']],
+        alphabetize: { order: 'asc', ignoreCase: true },
+      },
+    ],
   },
 };

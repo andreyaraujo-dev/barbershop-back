@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 import { ServicesEntity } from 'src/modules/services/entities/services.entity';
 import { ServiceNotFoundException } from 'src/modules/services/exceptions/service-not-found.exception';
 import { Repository } from 'typeorm';
+
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class FindByIdServiceService {

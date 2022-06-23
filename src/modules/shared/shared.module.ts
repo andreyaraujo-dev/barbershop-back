@@ -1,5 +1,6 @@
 import { FactoryProvider, Global, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+
 import { ConstantKeys } from './config/constant-keys.enum';
 import { TypeOrmConfigService } from './database/typeorm-config.service';
 import { LoggerService } from './services/logger/logger.service';

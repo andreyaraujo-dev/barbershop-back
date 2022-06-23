@@ -1,4 +1,3 @@
-import { InstitutionsEntity } from './../../institutions/entities/institutions.entity';
 import {
   Column,
   CreateDateColumn,
@@ -8,6 +7,8 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+
+import { InstitutionsEntity } from './../../institutions/entities/institutions.entity';
 
 @Entity({ name: 'services' })
 export class ServicesEntity {
