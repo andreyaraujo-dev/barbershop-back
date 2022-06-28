@@ -1,3 +1,4 @@
+import { EmployeesEntity } from 'src/modules/employees/entities/employees.entity';
 import {
   Column,
   CreateDateColumn,
@@ -31,6 +32,9 @@ export class InstitutionsEntity {
 
   @OneToMany(() => ServicesEntity, (service) => service.institution)
   services: ServicesEntity[];
+
+  @OneToMany(() => EmployeesEntity, (employee) => employee.institution)
+  employees: EmployeesEntity[];
 
   @CreateDateColumn()
   createdAt: Date;
