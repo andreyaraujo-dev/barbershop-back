@@ -1,20 +1,21 @@
 import { EmployeesEntity } from 'src/modules/employees/entities/employees.entity';
 import { EmployeeNotFoundException } from 'src/modules/employees/exceptions/employee-not-found.exception';
-import { Repository } from 'typeorm';
+import { DeleteResult, Repository } from 'typeorm';
 
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
-export class FindEmployeeByIdService {
+export class DeleteEmployeeService {
   constructor(
     @InjectRepository(EmployeesEntity)
     private readonly employeeRepository: Repository<EmployeesEntity>,
   ) {}
 
-  async execute(employeeId: string): Promise<EmployeesEntity> {
-    const employee = await this.employeeRepository.findOne(employeeId);
+  async execute(id: string): Promise<DeleteResult> {
+    const employee = await this.employeeRepository.findOne(id);
     if (!employee) throw new EmployeeNotFoundException();
-    return employee;
+
+    return this.employeeRepository.delete(id);
   }
 }

@@ -1,9 +1,11 @@
 import { Pagination } from 'nestjs-typeorm-paginate';
+import { DeleteResult } from 'typeorm';
 
 import {
   Body,
   Controller,
   DefaultValuePipe,
+  Delete,
   Get,
   Param,
   ParseIntPipe,
@@ -27,6 +29,7 @@ import { CreatedEmployeeDto } from './dto/created-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
 import { EmployeesEntity } from './entities/employees.entity';
 import { CreateEmployeeService } from './services/application/create-employee/create-employee.service';
+import { DeleteEmployeeService } from './services/application/delete-employee/delete-employee.service';
 import { FindEmployeeByIdService } from './services/application/find-employee-by-id/find-employee-by-id.service';
 import { ListAllEmployeesService } from './services/application/list-all-employees/list-all-employees.service';
 import { UpdateEmployeeService } from './services/application/update-employee/update-employee.service';
@@ -39,6 +42,7 @@ export class EmployeesController {
     private readonly listAllEmployeesService: ListAllEmployeesService,
     private readonly findEmployeeByIdService: FindEmployeeByIdService,
     private readonly updateEmployeeService: UpdateEmployeeService,
+    private readonly deleteEmployeeService: DeleteEmployeeService,
   ) {}
 
   @Post()
@@ -139,5 +143,25 @@ export class EmployeesController {
     @Body() body: UpdateEmployeeDto,
   ): Promise<EmployeesEntity> {
     return this.updateEmployeeService.execute(body, id);
+  }
+
+  @Delete(':id')
+  @ApiOkResponse({
+    description: 'Deleção feita com sucesso',
+  })
+  @ApiInternalServerErrorResponse({
+    description: 'Erro interno no servidor',
+  })
+  @ApiBadRequestResponse({
+    description: 'Não foi possível realizar a listagem',
+  })
+  @ApiParam({
+    description: 'Id do funcionário',
+    name: 'id',
+  })
+  async delete(
+    @Param('id', new ParseUUIDPipe()) id: string,
+  ): Promise<DeleteResult> {
+    return this.deleteEmployeeService.execute(id);
   }
 }
