@@ -5,7 +5,9 @@ import {
   Controller,
   DefaultValuePipe,
   Get,
+  Param,
   ParseIntPipe,
+  ParseUUIDPipe,
   Post,
   Query,
 } from '@nestjs/common';
@@ -14,6 +16,7 @@ import {
   ApiCreatedResponse,
   ApiInternalServerErrorResponse,
   ApiOkResponse,
+  ApiParam,
   ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
@@ -22,6 +25,7 @@ import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { CreatedEmployeeDto } from './dto/created-employee.dto';
 import { EmployeesEntity } from './entities/employees.entity';
 import { CreateEmployeeService } from './services/application/create-employee/create-employee.service';
+import { FindEmployeeByIdService } from './services/application/find-employee-by-id/find-employee-by-id.service';
 import { ListAllEmployeesService } from './services/application/list-all-employees/list-all-employees.service';
 
 @ApiTags('Employees')
@@ -30,6 +34,7 @@ export class EmployeesController {
   constructor(
     private readonly createEmployeeService: CreateEmployeeService,
     private readonly listAllEmployeesService: ListAllEmployeesService,
+    private readonly findEmployeeByIdService: FindEmployeeByIdService,
   ) {}
 
   @Post()
@@ -89,5 +94,25 @@ export class EmployeesController {
       },
       institutionId,
     );
+  }
+
+  @Get(':id')
+  @ApiOkResponse({
+    description: 'Pesquisa feita com sucesso',
+  })
+  @ApiInternalServerErrorResponse({
+    description: 'Erro interno no servidor',
+  })
+  @ApiBadRequestResponse({
+    description: 'Não foi possível realizar a listagem',
+  })
+  @ApiParam({
+    description: 'Id do funcionario',
+    name: 'id',
+  })
+  async findById(
+    @Param('id', new ParseUUIDPipe()) id: string,
+  ): Promise<EmployeesEntity> {
+    return this.findEmployeeByIdService.execute(id);
   }
 }
