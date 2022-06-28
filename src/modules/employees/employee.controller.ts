@@ -8,6 +8,7 @@ import {
   Param,
   ParseIntPipe,
   ParseUUIDPipe,
+  Patch,
   Post,
   Query,
 } from '@nestjs/common';
@@ -23,10 +24,12 @@ import {
 
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { CreatedEmployeeDto } from './dto/created-employee.dto';
+import { UpdateEmployeeDto } from './dto/update-employee.dto';
 import { EmployeesEntity } from './entities/employees.entity';
 import { CreateEmployeeService } from './services/application/create-employee/create-employee.service';
 import { FindEmployeeByIdService } from './services/application/find-employee-by-id/find-employee-by-id.service';
 import { ListAllEmployeesService } from './services/application/list-all-employees/list-all-employees.service';
+import { UpdateEmployeeService } from './services/application/update-employee/update-employee.service';
 
 @ApiTags('Employees')
 @Controller('employees')
@@ -35,6 +38,7 @@ export class EmployeesController {
     private readonly createEmployeeService: CreateEmployeeService,
     private readonly listAllEmployeesService: ListAllEmployeesService,
     private readonly findEmployeeByIdService: FindEmployeeByIdService,
+    private readonly updateEmployeeService: UpdateEmployeeService,
   ) {}
 
   @Post()
@@ -107,12 +111,33 @@ export class EmployeesController {
     description: 'Não foi possível realizar a listagem',
   })
   @ApiParam({
-    description: 'Id do funcionario',
+    description: 'Id do funcionário',
     name: 'id',
   })
   async findById(
     @Param('id', new ParseUUIDPipe()) id: string,
   ): Promise<EmployeesEntity> {
     return this.findEmployeeByIdService.execute(id);
+  }
+
+  @Patch(':id')
+  @ApiOkResponse({
+    description: 'Atualização feita com sucesso',
+  })
+  @ApiInternalServerErrorResponse({
+    description: 'Erro interno no servidor',
+  })
+  @ApiBadRequestResponse({
+    description: 'Não foi possível realizar a listagem',
+  })
+  @ApiParam({
+    description: 'Id do funcionário',
+    name: 'id',
+  })
+  async update(
+    @Param('id', new ParseUUIDPipe()) id: string,
+    @Body() body: UpdateEmployeeDto,
+  ): Promise<EmployeesEntity> {
+    return this.updateEmployeeService.execute(body, id);
   }
 }

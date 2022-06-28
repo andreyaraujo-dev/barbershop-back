@@ -6,6 +6,7 @@ import { EmployeesEntity } from './entities/employees.entity';
 import { CreateEmployeeService } from './services/application/create-employee/create-employee.service';
 import { FindEmployeeByIdService } from './services/application/find-employee-by-id/find-employee-by-id.service';
 import { ListAllEmployeesService } from './services/application/list-all-employees/list-all-employees.service';
+import { UpdateEmployeeService } from './services/application/update-employee/update-employee.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([EmployeesEntity])],
@@ -14,6 +15,7 @@ import { ListAllEmployeesService } from './services/application/list-all-employe
     CreateEmployeeService,
     ListAllEmployeesService,
     FindEmployeeByIdService,
+    UpdateEmployeeService,
   ],
   exports: [],
 })
