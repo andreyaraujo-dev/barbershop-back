@@ -21,6 +21,8 @@ export class CreateUserService {
       ...createUserDto,
       password: passwordHash,
     });
-    return this.usersRepository.save(user);
+    await this.usersRepository.save(user);
+    delete user.password;
+    return user;
   }
 }

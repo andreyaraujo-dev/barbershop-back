@@ -26,6 +26,7 @@ export class FindUsersByInstitutionService {
         'id',
         'firstName',
         'lastName',
+        'birthDate',
         'isAdmin',
         'institutionId',
         'lastLogin',

@@ -8,6 +8,7 @@ import {
   Param,
   ParseIntPipe,
   ParseUUIDPipe,
+  Patch,
   Post,
   Query,
 } from '@nestjs/common';
@@ -23,10 +24,12 @@ import {
 
 import { CreateUserDto } from './dto/create-user.dto';
 import { CreatedUserDto } from './dto/created-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { Users } from './entities/users.entity';
 import { CreateUserService } from './services/application/create-user/create-user.service';
 import { FindUserByIdService } from './services/application/find-user-by-id/find-user-by-id.service';
 import { FindUsersByInstitutionService } from './services/application/find-users-by-institution/find-users-by-institution.service';
+import { UpdateUserService } from './services/application/update-user/update-user.service';
 
 @ApiTags('Users')
 @Controller('users')
@@ -35,6 +38,7 @@ export class UsersController {
     private readonly createUserService: CreateUserService,
     private readonly findUsersByInstitution: FindUsersByInstitutionService,
     private readonly findUserByIdService: FindUserByIdService,
+    private readonly updateUserService: UpdateUserService,
   ) {}
 
   @Post()
@@ -106,5 +110,25 @@ export class UsersController {
   })
   async findById(@Param('id', new ParseUUIDPipe()) id: string): Promise<Users> {
     return this.findUserByIdService.execute(id);
+  }
+
+  @Patch(':id')
+  @ApiOkResponse({ description: 'Atualização feita com sucesso' })
+  @ApiParam({
+    name: 'id',
+    description: 'Id do usuário',
+    required: true,
+  })
+  @ApiInternalServerErrorResponse({
+    description: 'Erro interno no servidor',
+  })
+  @ApiBadRequestResponse({
+    description: 'Não foi possível realizar a atualização',
+  })
+  async update(
+    @Param('id', new ParseUUIDPipe()) id: string,
+    @Body() body: UpdateUserDto,
+  ): Promise<Users> {
+    return this.updateUserService.execute(body, id);
   }
 }

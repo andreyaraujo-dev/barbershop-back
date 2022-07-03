@@ -19,9 +19,6 @@ export class CreatedUserDto {
   @ApiProperty({ description: 'Diz se o usuário é admin', required: true })
   isAdmin: boolean;
 
-  @ApiProperty({ description: 'Senha do usuário', required: true })
-  password: string;
-
   @ApiProperty({ description: 'Data de criação' })
   createdAt: Date;
 
