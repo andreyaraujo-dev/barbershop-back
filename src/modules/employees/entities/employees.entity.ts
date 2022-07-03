@@ -25,6 +25,12 @@ export class EmployeesEntity {
   name: string;
 
   @Column()
+  email: string;
+
+  @Column()
+  phone: string;
+
+  @Column()
   birthDate?: string;
 
   @Column()

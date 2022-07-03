@@ -19,6 +19,12 @@ export class InstitutionsEntity {
   @Column({ type: 'varchar', length: 150 })
   name: string;
 
+  @Column()
+  email: string;
+
+  @Column()
+  phone: string;
+
   @Column({ type: 'varchar', length: 300 })
   description: string;
 

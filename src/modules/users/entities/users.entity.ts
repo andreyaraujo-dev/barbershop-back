@@ -39,6 +39,12 @@ export class Users {
   @Column()
   password: string;
 
+  @Column()
+  email: string;
+
+  @Column()
+  phone: string;
+
   @CreateDateColumn()
   createdAt: Date;
 

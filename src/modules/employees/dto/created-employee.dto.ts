@@ -8,6 +8,12 @@ export class CreatedEmployeeDto {
   name: string;
 
   @ApiProperty()
+  email: string;
+
+  @ApiProperty()
+  phone: string;
+
+  @ApiProperty()
   institutionId: string;
 
   @ApiProperty()
