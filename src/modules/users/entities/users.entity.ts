@@ -34,6 +34,9 @@ export class Users {
   isAdmin: boolean;
 
   @Column()
+  lastLogin: Date;
+
+  @Column()
   password: string;
 
   @CreateDateColumn()

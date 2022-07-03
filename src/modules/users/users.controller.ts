@@ -1,8 +1,22 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Pagination } from 'nestjs-typeorm-paginate';
+
+import {
+  Body,
+  Controller,
+  DefaultValuePipe,
+  Get,
+  Param,
+  ParseIntPipe,
+  ParseUUIDPipe,
+  Post,
+  Query,
+} from '@nestjs/common';
 import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
   ApiInternalServerErrorResponse,
+  ApiParam,
+  ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
 
@@ -10,11 +24,15 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { CreatedUserDto } from './dto/created-user.dto';
 import { Users } from './entities/users.entity';
 import { CreateUserService } from './services/application/create-user/create-user.service';
+import { FindUsersByInstitutionService } from './services/application/find-users-by-institution/find-users-by-institution.service';
 
 @ApiTags('Users')
 @Controller('users')
 export class UsersController {
-  constructor(private readonly createUserService: CreateUserService) {}
+  constructor(
+    private readonly createUserService: CreateUserService,
+    private readonly findUsersByInstitution: FindUsersByInstitutionService,
+  ) {}
 
   @Post()
   @ApiCreatedResponse({
@@ -29,5 +47,43 @@ export class UsersController {
   })
   async create(@Body() body: CreateUserDto): Promise<Users> {
     return this.createUserService.execute(body);
+  }
+
+  @Get('/institution/:id')
+  @ApiInternalServerErrorResponse({
+    description: 'Erro interno no servidor',
+  })
+  @ApiBadRequestResponse({
+    description: 'Não foi possível realizar a listagem dos usuários',
+  })
+  @ApiQuery({
+    description: 'Número da página',
+    type: 'number',
+    name: 'page',
+    required: false,
+  })
+  @ApiQuery({
+    description: 'Limite de itens',
+    type: 'number',
+    name: 'limit',
+    required: false,
+  })
+  @ApiParam({
+    name: 'id',
+    description: 'Id da instituição',
+    required: true,
+  })
+  async listByInstitution(
+    @Param('id', new ParseUUIDPipe()) id: string,
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page = 1,
+    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit = 10,
+  ): Promise<Pagination<Users>> {
+    limit = limit > 100 ? 100 : limit;
+
+    return this.findUsersByInstitution.execute(id, {
+      page,
+      limit,
+      route: `/users/institution/${id}`,
+    });
   }
 }
