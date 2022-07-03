@@ -32,7 +32,7 @@ import { ListInstitutionsService } from './services/application/list-institution
 import { UpdateInstitutionService } from './services/application/update-institution/update-institution.service';
 
 @ApiTags('Institutions')
-@Controller('api/v1/institutions')
+@Controller('/institutions')
 export class InstitutionsController {
   constructor(
     private readonly listInstitutionsService: ListInstitutionsService,

@@ -1,10 +1,13 @@
+import { Addresses } from 'src/modules/addresses/entities/addresses.entity';
 import { EmployeesEntity } from 'src/modules/employees/entities/employees.entity';
 import { Users } from 'src/modules/users/entities/users.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -45,6 +48,13 @@ export class InstitutionsEntity {
 
   @OneToMany(() => Users, (user) => user.institution)
   users: Users[];
+
+  @OneToOne(() => Addresses)
+  @JoinColumn({ name: 'addressId' })
+  address: Addresses;
+
+  @Column({ nullable: true })
+  addressId?: string;
 
   @CreateDateColumn()
   createdAt: Date;

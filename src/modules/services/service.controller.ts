@@ -107,7 +107,7 @@ export class ServiceController {
       options: {
         page,
         limit,
-        route: 'api/v1/services',
+        route: '/services',
       },
       institutionId,
       name,

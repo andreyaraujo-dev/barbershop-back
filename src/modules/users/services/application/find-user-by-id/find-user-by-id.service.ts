@@ -21,7 +21,11 @@ export class FindUserByIdService {
         'birthDate',
         'createdAt',
         'lastLogin',
+        'addressId',
+        'email',
+        'phone',
       ],
+      relations: ['address'],
     });
 
     if (!user) throw new NotFoundUserException();

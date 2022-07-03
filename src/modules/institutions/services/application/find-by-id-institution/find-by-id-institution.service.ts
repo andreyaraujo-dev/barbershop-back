@@ -14,7 +14,7 @@ export class FindByIdInstitutionService {
 
   async execute(id: string): Promise<InstitutionsEntity> {
     const institution = await this.institutionsRepository.findOne(id, {
-      relations: ['services'],
+      relations: ['services', 'address'],
     });
     if (!institution) throw new InstitutionNotFoundException(id);
 
