@@ -15,6 +15,7 @@ import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
   ApiInternalServerErrorResponse,
+  ApiOkResponse,
   ApiParam,
   ApiQuery,
   ApiTags,
@@ -24,6 +25,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { CreatedUserDto } from './dto/created-user.dto';
 import { Users } from './entities/users.entity';
 import { CreateUserService } from './services/application/create-user/create-user.service';
+import { FindUserByIdService } from './services/application/find-user-by-id/find-user-by-id.service';
 import { FindUsersByInstitutionService } from './services/application/find-users-by-institution/find-users-by-institution.service';
 
 @ApiTags('Users')
@@ -32,6 +34,7 @@ export class UsersController {
   constructor(
     private readonly createUserService: CreateUserService,
     private readonly findUsersByInstitution: FindUsersByInstitutionService,
+    private readonly findUserByIdService: FindUserByIdService,
   ) {}
 
   @Post()
@@ -50,6 +53,7 @@ export class UsersController {
   }
 
   @Get('/institution/:id')
+  @ApiOkResponse({ description: 'Listagem feita com sucesso' })
   @ApiInternalServerErrorResponse({
     description: 'Erro interno no servidor',
   })
@@ -85,5 +89,22 @@ export class UsersController {
       limit,
       route: `/users/institution/${id}`,
     });
+  }
+
+  @Get(':id')
+  @ApiOkResponse({ description: 'Pesquisa feita com sucesso' })
+  @ApiParam({
+    name: 'id',
+    description: 'Id do usuário',
+    required: true,
+  })
+  @ApiInternalServerErrorResponse({
+    description: 'Erro interno no servidor',
+  })
+  @ApiBadRequestResponse({
+    description: 'Não foi possível realizar a pesquisa',
+  })
+  async findById(@Param('id', new ParseUUIDPipe()) id: string): Promise<Users> {
+    return this.findUserByIdService.execute(id);
   }
 }
