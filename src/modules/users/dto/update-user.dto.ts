@@ -22,4 +22,9 @@ export class UpdateUserDto {
   @IsString()
   @IsOptional()
   phone?: string;
+
+  @ApiProperty({ description: 'Endereço do usuário', required: false })
+  @IsString()
+  @IsOptional()
+  addressId?: string;
 }

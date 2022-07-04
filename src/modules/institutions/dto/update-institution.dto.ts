@@ -33,4 +33,9 @@ export class UpdateInstitutionDto {
   @IsString()
   @IsEmail()
   email?: string;
+
+  @ApiProperty({ description: 'Endereço da instituição', required: false })
+  @IsString()
+  @IsOptional()
+  addressId?: string;
 }

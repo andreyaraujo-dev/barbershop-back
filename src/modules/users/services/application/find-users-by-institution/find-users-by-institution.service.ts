@@ -28,11 +28,15 @@ export class FindUsersByInstitutionService {
         'lastName',
         'birthDate',
         'isAdmin',
+        'phone',
+        'email',
         'institutionId',
+        'addressId',
         'lastLogin',
         'createdAt',
         'updatedAt',
       ],
+      relations: ['address'],
     });
   }
 }
