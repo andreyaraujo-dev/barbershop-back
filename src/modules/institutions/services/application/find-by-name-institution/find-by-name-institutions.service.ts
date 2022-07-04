@@ -23,6 +23,7 @@ export class FindByNameInstitutionsService {
   ): Promise<Pagination<InstitutionsEntity>> {
     return paginate<InstitutionsEntity>(this.institutionsRepository, options, {
       where: { name: Like(`%${name}%`) },
+      relations: ['services', 'address'],
     });
   }
 }

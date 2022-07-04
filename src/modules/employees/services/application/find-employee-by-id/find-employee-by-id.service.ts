@@ -13,7 +13,9 @@ export class FindEmployeeByIdService {
   ) {}
 
   async execute(employeeId: string): Promise<EmployeesEntity> {
-    const employee = await this.employeeRepository.findOne(employeeId);
+    const employee = await this.employeeRepository.findOne(employeeId, {
+      relations: ['address'],
+    });
     if (!employee) throw new EmployeeNotFoundException();
     return employee;
   }

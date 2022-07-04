@@ -1,3 +1,4 @@
+import { Addresses } from 'src/modules/addresses/entities/addresses.entity';
 import { InstitutionsEntity } from 'src/modules/institutions/entities/institutions.entity';
 import {
   Column,
@@ -5,6 +6,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -38,6 +40,19 @@ export class Users {
 
   @Column()
   password: string;
+
+  @Column()
+  email: string;
+
+  @Column()
+  phone: string;
+
+  @OneToOne(() => Addresses)
+  @JoinColumn({ name: 'addressId' })
+  address: Addresses;
+
+  @Column({ nullable: true })
+  addressId?: string;
 
   @CreateDateColumn()
   createdAt: Date;

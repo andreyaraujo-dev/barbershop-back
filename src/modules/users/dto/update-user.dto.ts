@@ -3,16 +3,28 @@ import { IsOptional, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class UpdateUserDto {
-  @ApiProperty({ description: 'Primeiro nome do usuário', required: true })
+  @ApiProperty({ description: 'Primeiro nome do usuário', required: false })
   @IsString()
-  firstName: string;
+  @IsOptional()
+  firstName?: string;
 
-  @ApiProperty({ description: 'Segundo nome do usuário', required: true })
+  @ApiProperty({ description: 'Segundo nome do usuário', required: false })
   @IsString()
-  lastName: string;
+  @IsOptional()
+  lastName?: string;
 
   @ApiProperty({ description: 'Data de aniversário', required: false })
   @IsString()
   @IsOptional()
   birthDate?: Date;
+
+  @ApiProperty({ description: 'Telefone do usuário', required: false })
+  @IsString()
+  @IsOptional()
+  phone?: string;
+
+  @ApiProperty({ description: 'Endereço do usuário', required: false })
+  @IsString()
+  @IsOptional()
+  addressId?: string;
 }

@@ -1,5 +1,6 @@
 import {
   IsArray,
+  IsEmail,
   IsNotEmpty,
   IsNumber,
   IsOptional,
@@ -28,6 +29,15 @@ export class CreateEmployeeDto {
   @ApiProperty()
   @IsString()
   office: string;
+
+  @ApiProperty()
+  @IsString()
+  phone: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsEmail()
+  email?: string;
 
   @ApiProperty()
   @ApiPropertyOptional()

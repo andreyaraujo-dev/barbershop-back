@@ -1,4 +1,10 @@
-import { IsNotEmpty, IsOptional, IsString, IsUUID } from 'class-validator';
+import {
+  IsEmail,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  IsUUID,
+} from 'class-validator';
 
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
@@ -30,4 +36,13 @@ export class CreateInstitutionDto {
   @ApiPropertyOptional()
   @IsOptional()
   openingHours?: string;
+
+  @ApiProperty()
+  @IsString()
+  phone: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsEmail()
+  email?: string;
 }

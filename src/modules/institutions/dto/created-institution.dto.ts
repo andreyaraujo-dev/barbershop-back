@@ -33,4 +33,10 @@ export class CreatedInstitutionDto {
 
   @ApiProperty({ description: 'Data de atualização' })
   updatedAt: Date;
+
+  @ApiProperty()
+  phone: string;
+
+  @ApiProperty()
+  email?: string;
 }

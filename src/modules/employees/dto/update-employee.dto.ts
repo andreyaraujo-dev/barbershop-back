@@ -1,5 +1,6 @@
 import {
   IsArray,
+  IsEmail,
   IsNotEmpty,
   IsNumber,
   IsOptional,
@@ -33,4 +34,18 @@ export class UpdateEmployeeDto {
   @ApiProperty()
   @IsArray()
   specialties: string[];
+
+  @ApiProperty()
+  @IsString()
+  phone: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsEmail()
+  email?: string;
+
+  @ApiProperty({ description: 'Endereço do funcionário', required: false })
+  @IsString()
+  @IsOptional()
+  addressId?: string;
 }

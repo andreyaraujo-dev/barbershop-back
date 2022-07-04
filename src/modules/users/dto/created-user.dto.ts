@@ -24,4 +24,10 @@ export class CreatedUserDto {
 
   @ApiProperty({ description: 'Data de atualização' })
   updatedAt: Date;
+
+  @ApiProperty({ description: 'Telefone do usuário', required: true })
+  phone: string;
+
+  @ApiProperty({ description: 'E-mail do usuário', required: true })
+  email: string;
 }
