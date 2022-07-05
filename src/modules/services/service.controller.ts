@@ -36,7 +36,7 @@ import { ListServicesService } from './services/application/list-service/list-se
 import { UpdateServiceService } from './services/application/update-service/update-service.service';
 
 @ApiTags('Services')
-@Controller('api/v1/services')
+@Controller('services')
 export class ServiceController {
   constructor(
     private readonly createServiceService: CreateServiceService,
