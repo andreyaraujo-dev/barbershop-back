@@ -6,6 +6,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -16,25 +17,29 @@ export class Schedules {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @OneToOne(() => Users)
+  @OneToOne(() => Users, { eager: true })
+  @JoinColumn({ name: 'userId' })
   user: Users;
 
   @Column()
   userId: string;
 
-  @OneToOne(() => InstitutionsEntity)
+  @OneToOne(() => InstitutionsEntity, { eager: true })
+  @JoinColumn({ name: 'institutionId' })
   institution: InstitutionsEntity;
 
   @Column()
   institutionId: string;
 
-  @OneToOne(() => ServicesEntity)
+  @OneToOne(() => ServicesEntity, { eager: true })
+  @JoinColumn({ name: 'serviceId' })
   service: ServicesEntity;
 
   @Column()
   serviceId: string;
 
-  @OneToOne(() => EmployeesEntity)
+  @OneToOne(() => EmployeesEntity, { eager: true })
+  @JoinColumn({ name: 'employeeId' })
   employee: EmployeesEntity;
 
   @Column()
