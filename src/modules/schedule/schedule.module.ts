@@ -6,6 +6,7 @@ import { ScheduleController } from './schedule.controller';
 import { CancelScheduleService } from './services/application/cancel-schedule/cancel-schedule.service';
 import { CreateScheduleService } from './services/application/create-schedule/create-schedule.service';
 import { FinishScheduleService } from './services/application/finish-schedule/finish-schedule.service';
+import { GetAllSchedulesService } from './services/application/get-all-schedules/get-all-schedules.service';
 import { UpdateScheduleService } from './services/application/update-schedule/update-schedule.service';
 
 @Module({
@@ -15,6 +16,7 @@ import { UpdateScheduleService } from './services/application/update-schedule/up
     UpdateScheduleService,
     FinishScheduleService,
     CancelScheduleService,
+    GetAllSchedulesService,
   ],
   controllers: [ScheduleController],
 })
