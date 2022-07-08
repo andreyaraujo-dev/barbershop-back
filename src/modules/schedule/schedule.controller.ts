@@ -21,6 +21,7 @@ import { CreatedScheduleDto } from './dto/created-schedule.dto';
 import { UpdateScheduleDto } from './dto/update-schedule.dto';
 import { Schedules } from './entities/schedule.entity';
 import { CreateScheduleService } from './services/application/create-schedule/create-schedule.service';
+import { FinishScheduleService } from './services/application/finish-schedule/finish-schedule.service';
 import { UpdateScheduleService } from './services/application/update-schedule/update-schedule.service';
 
 @ApiTags('Schedules')
@@ -29,6 +30,7 @@ export class ScheduleController {
   constructor(
     private readonly createScheduleService: CreateScheduleService,
     private readonly updateScheduleService: UpdateScheduleService,
+    private readonly finishScheduleService: FinishScheduleService,
   ) {}
 
   @Post()
@@ -72,5 +74,24 @@ export class ScheduleController {
     @Body() body: UpdateScheduleDto,
   ): Promise<Schedules> {
     return this.updateScheduleService.execute(body, id);
+  }
+
+  @Patch('/finish/:id')
+  @ApiOkResponse({ description: 'Finalização feita com sucesso' })
+  @ApiParam({
+    name: 'id',
+    description: 'Id da agenda',
+    required: true,
+  })
+  @ApiInternalServerErrorResponse({
+    description: 'Erro interno no servidor',
+  })
+  @ApiBadRequestResponse({
+    description: 'Não foi possível realizar a finalização',
+  })
+  async finish(
+    @Param('id', new ParseUUIDPipe()) id: string,
+  ): Promise<Schedules> {
+    return this.finishScheduleService.execute(id);
   }
 }
